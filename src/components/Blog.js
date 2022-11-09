@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Blog = ({ blog, handleLikes, handleRemove }) => {
+const Blog = ({ user, blog, handleLikes, handleRemove }) => {
    const [visible, setVisible] = useState(false)
    const showWhenVisible = { display: visible ? '' : 'none' }
 
@@ -10,8 +10,8 @@ const Blog = ({ blog, handleLikes, handleRemove }) => {
 
    return (
       <div className='Blog'>
-         <div onClick={toggleVisibility}>
-            {blog.title} / By: <b>{blog.author}</b>
+         <div onClick={toggleVisibility} className='toggleArea'>
+            {blog.title} / By: <b>{blog.author}</b> <span>Click to expand/shrink</span>
          </div>
          <div style={showWhenVisible}>
             <div>
@@ -24,7 +24,9 @@ const Blog = ({ blog, handleLikes, handleRemove }) => {
                {blog.user.name} aded this blog
             </div>
             <div>
-               <button className='removeBttn' value={blog.id} onClick={handleRemove}>Remove blog</button>
+               {user.name === blog.user.name
+                  ? <button className='removeBttn' value={blog.id} onClick={handleRemove}>Remove blog</button>
+                  : null}
             </div>
          </div>
       </div>

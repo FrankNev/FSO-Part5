@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -17,6 +17,8 @@ const App = () => {
    const [user, setUser] = useState(null)
    const [notification, setNotification] = useState(null)
 
+   const noteFormRef = useRef()
+
    useEffect(() => {
       const getBlogsList = async () => {
          const initialBlogs = await blogService.getAll()
@@ -24,7 +26,7 @@ const App = () => {
          setBlogs(initialBlogs)
       }
       getBlogsList()
-   }, []);
+   }, [])
 
    useEffect(() => {
       const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -56,7 +58,7 @@ const App = () => {
       } catch (exception) {
          setNotification({
             'type': 'error',
-            'info': `wrong username or password`
+            'info': 'wrong username or password'
          })
          setTimeout(() => {
             setNotification(null)
@@ -70,6 +72,7 @@ const App = () => {
    }
 
    const addBlog = async (blogObj) => {
+      noteFormRef.current.toggleVisibility()
       try {
          const result = await blogService.create(blogObj)
          setBlogs(blogs.concat(result))
@@ -158,13 +161,14 @@ const App = () => {
                   <p><b>{user.name}</b> logged-in</p><button onClick={handleLogOut}>log-out</button>
                </div>
 
-               <Togglable buttonLabel='Add a new blog'>
+               <Togglable buttonLabel='Add a new blog' ref={noteFormRef}>
                   <BlogForm createNewBlog={addBlog} />
                </Togglable>
                <div className='blogList'>
                   {blogs.map(blog =>
                      <Blog
                         key={blog.id}
+                        user={user}
                         blog={blog}
                         handleLikes={updateBlogLikes}
                         handleRemove={handleRemoveBlog}

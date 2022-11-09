@@ -2,6 +2,8 @@
   --greenColor: #088b08;
   --redColor: #ff1d1d;
   --blueColor: #36abff;
+  --bttnColor: #abebff;
+  --blogColor: #c3fff9;
 }
 
 * {
@@ -29,11 +31,22 @@ p {
 button {
   border: none;
   border-radius: 3px;
-  padding: 3px;
+  padding: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--bttnColor);
 }
 
 form {
   margin: 10px;
+}
+
+span {
+  font-weight: 100;
+  font-style: italic;
+  color: #959595;
 }
 
 .userInfo {
@@ -49,8 +62,12 @@ form {
   margin-left: 10px;
 }
 
+.toggleArea:hover {
+  cursor: pointer;
+}
+
 .Blog {
-  background-color: rgb(195, 255, 249);
+  background-color: var(--blogColor);
   border-radius: 8px;
   margin-bottom: 10px;
   padding: 10px;
