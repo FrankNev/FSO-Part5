@@ -13,7 +13,7 @@ const Blog = ({ user, blog, handleLikes, handleRemove }) => {
          <div onClick={toggleVisibility} className='toggleArea'>
             {blog.title} / By: <b>{blog.author}</b> <span>Click to expand/shrink</span>
          </div>
-         <div style={showWhenVisible}>
+         <div style={showWhenVisible} className='togglableInfo'>
             <div>
                Link: <a href='#'>{blog.url}</a>
             </div>
