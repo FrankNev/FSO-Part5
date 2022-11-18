@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
 const Blog = ({ user, blog, handleLikes, handleRemove }) => {
    const [visible, setVisible] = useState(false)
@@ -11,17 +12,17 @@ const Blog = ({ user, blog, handleLikes, handleRemove }) => {
    return (
       <div className='Blog'>
          <div onClick={toggleVisibility} className='toggleArea'>
-            {blog.title} / By: <b>{blog.author}</b> <span>Click to expand/shrink</span>
+            <p>{blog.title} / By: <b>{blog.author}</b></p> <span>Click to expand/shrink</span>
          </div>
          <div style={showWhenVisible} className='togglableInfo'>
             <div>
-               Link: <a href='#'>{blog.url}</a>
+               <p>Link: <a href='#'>{blog.url}</a></p>
             </div>
             <div>
-               {blog.likes} Likes <button className='likeBttn' value={blog.id} onClick={handleLikes}>Like</button>
+               <p id='likesCount'>{blog.likes}</p> Likes <button className='likeBttn' value={blog.id} onClick={handleLikes}>Like</button>
             </div>
             <div>
-               {blog.user.name} aded this blog
+               <p>{blog.user.name} aded this blog</p>
             </div>
             <div>
                {user.name === blog.user.name
@@ -31,6 +32,13 @@ const Blog = ({ user, blog, handleLikes, handleRemove }) => {
          </div>
       </div>
    )
+}
+
+Blog.propTypes = {
+   user: PropTypes.string.isRequired,
+   blog: PropTypes.string.isRequired,
+   handleLikes: PropTypes.func.isRequired,
+   handleRemove: PropTypes.func.isRequired
 }
 
 export default Blog

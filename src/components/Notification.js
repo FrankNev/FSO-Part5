@@ -6,7 +6,7 @@ const Notification = ({ message }) => {
    }
 
    return (
-      <div className={message.type === 'error' ? 'error' : 'success'}>
+      <div id='messageAlert' className={message.type === 'error' ? 'error' : 'success'}>
          {message.info}
       </div>
    )
